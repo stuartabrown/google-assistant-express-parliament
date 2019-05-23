@@ -2,6 +2,8 @@
 
 var express = require('express');
 var router = express.Router();
+// Import the Dialogflow module from the Actions on Google client library.
+const {dialogflow} = require('actions-on-google');
 const googleApp = dialogflow({debug: true});
 // const {
 //   dialogflow,
@@ -20,8 +22,7 @@ const googleApp = dialogflow({debug: true});
 
 // module.exports = router;
 
-// Import the Dialogflow module from the Actions on Google client library.
-const {dialogflow} = require('actions-on-google');
+
 
 // Import the firebase-functions package for deployment.
 // const functions = require('firebase-functions');
