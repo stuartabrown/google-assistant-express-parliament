@@ -11,7 +11,7 @@ const googleApp = dialogflow({debug: true});
 // } = require('actions-on-google');
 
 // Instantiate the Dialogflow client.
-const googleApp = dialogflow({debug: true});
+// const googleApp = dialogflow({debug: true});
 
 /* GET home page. */
 // router.get('/', function(req, res, next) {
