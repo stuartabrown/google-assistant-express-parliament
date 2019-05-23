@@ -2,12 +2,13 @@
 
 var express = require('express');
 var router = express.Router();
-const {
-  dialogflow,
-  Permission,
-  Suggestions,
-  BasicCard,
-} = require('actions-on-google');
+const googleApp = dialogflow({debug: true});
+// const {
+//   dialogflow,
+//   Permission,
+//   Suggestions,
+//   BasicCard,
+// } = require('actions-on-google');
 
 // Instantiate the Dialogflow client.
 const googleApp = dialogflow({debug: true});
@@ -26,7 +27,7 @@ const {dialogflow} = require('actions-on-google');
 // const functions = require('firebase-functions');
 
 // Instantiate the Dialogflow client.
-const googleApp = dialogflow({debug: true});
+
 
 // Handle the Dialogflow intent named 'favorite color'.
 // The intent collects a parameter named 'color'.
