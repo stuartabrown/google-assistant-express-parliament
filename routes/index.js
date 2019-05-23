@@ -2,6 +2,15 @@
 
 var express = require('express');
 var router = express.Router();
+const {
+  dialogflow,
+  Permission,
+  Suggestions,
+  BasicCard,
+} = require('actions-on-google');
+
+// Instantiate the Dialogflow client.
+const googleApp = dialogflow({debug: true});
 
 /* GET home page. */
 // router.get('/', function(req, res, next) {
@@ -17,11 +26,11 @@ const {dialogflow} = require('actions-on-google');
 // const functions = require('firebase-functions');
 
 // Instantiate the Dialogflow client.
-const app = dialogflow({debug: true});
+const googleApp = dialogflow({debug: true});
 
 // Handle the Dialogflow intent named 'favorite color'.
 // The intent collects a parameter named 'color'.
-app.intent('favorite color', (conv, {color}) => {
+googleApp.intent('favorite color', (conv, {color}) => {
     const luckyNumber = color.length;
     // Respond with the user's lucky number and end the conversation.
     conv.close('Your lucky number is ' + luckyNumber);
