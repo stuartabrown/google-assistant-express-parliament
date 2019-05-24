@@ -2,7 +2,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const functions = require("firebase-functions");
-const audit = require("npm audit");
 
 // clients
 const dialogFlowApp = require("./DialogflowApp");
