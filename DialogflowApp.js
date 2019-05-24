@@ -9,6 +9,13 @@ const {
   // Instantiate the Dialogflow client.
   const app = dialogflow({ debug: true });
 
+  googleApp.intent('Default Welcome Intent', (conv) => {
+    conv.ask(new Permission({
+      context: 'Hi there, to get to know you better',
+      permissions: 'NAME'
+    }));
+  });
+
   app.intent('favorite color', (conv, {color}) => {
     const luckyNumber = color.length;
     // Respond with the user's lucky number and end the conversation.
