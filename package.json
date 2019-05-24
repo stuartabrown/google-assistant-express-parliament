@@ -10,10 +10,15 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "express": "^4.16.4"
+        "actions-on-google": "^2.0.0",
+        "body-parser": "^1.18.3",
+        "express": "^4.16.4",
+        "firebase-admin": "^8.0.0",
+        "firebase-functions": "^2.3.1"
     },
     "devDependencies": {
         "dotenv": "^6.2.0",
-        "nodemon": "^1.18.9"
+        "nodemon": "^1.18.9",
+        "ngrok": "^3.1.1"
     }
 }
