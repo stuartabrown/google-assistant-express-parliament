@@ -9,7 +9,7 @@ const {
   // Instantiate the Dialogflow client.
   const app = dialogflow({ debug: true });
 
-  googleApp.intent('Default Welcome Intent', (conv) => {
+  app.intent('Default Welcome Intent', (conv) => {
     conv.ask(new Permission({
       context: 'Hi there, to get to know you better',
       permissions: 'NAME'
