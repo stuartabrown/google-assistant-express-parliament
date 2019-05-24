@@ -16,6 +16,19 @@ const {
     }));
   });
 
+  // Handle the Dialogflow intent named 'actions_intent_PERMISSION'. If user
+// agreed to PERMISSION prompt, then boolean value 'permissionGranted' is true.
+app.intent('actions_intent_PERMISSION', (conv, params, permissionGranted) => {
+    if (!permissionGranted) {
+      conv.ask(`Ok, no worries. What's your favorite color?`);
+      conv.ask(new Suggestions('Blue', 'Red', 'Green'));
+    } else {
+      conv.data.userName = conv.user.name.display;
+      conv.ask(`Thanks, ${conv.data.userName}. What's your favorite color?`);
+      conv.ask(new Suggestions('Blue', 'Red', 'Green'));
+    }
+  });
+
   app.intent('favorite color', (conv, {color}) => {
     const luckyNumber = color.length;
     // Respond with the user's lucky number and end the conversation.
