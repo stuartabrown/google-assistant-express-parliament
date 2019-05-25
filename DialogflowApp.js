@@ -5,6 +5,17 @@ const {
     BasicCard
   } = require("actions-on-google");
 
+  const strava = async () => {
+    try {
+        // fetch data from a url endpoint
+        const data = await axios.get("https://www.strava.com/api/v3/activities/2373181785?access_token=ed8c7bfdcac10c2daa7477791cde45b5f51abf5e");
+        return data;
+      } catch(error) {
+        console.log("error", error);
+        // appropriately handle the error
+      }
+}
+
 
   // Instantiate the Dialogflow client.
   const app = dialogflow({ debug: true });
@@ -23,6 +34,8 @@ app.intent('actions_intent_PERMISSION', (conv, params, permissionGranted) => {
       conv.ask(`Ok, no worries. What's your favorite color?`);
       conv.ask(new Suggestions('Blue', 'Red', 'Green'));
     } else {
+
+
       conv.data.userName = conv.user.name.display;
       conv.ask(`Thanks, ${conv.data.userName}. What's your favorite color?`);
       conv.ask(new Suggestions('Blue', 'Red', 'Green'));
