@@ -18,7 +18,7 @@
 // });
 
 
-
+const util = require('util');
 
 const {
     dialogflow,
@@ -56,7 +56,9 @@ const {
   app.intent('actions_intent_SIGN_IN', (conv, params, signin) => {
     if (signin.status === 'OK') {
       const payload = conv.user.profile.payload;
-      console.log('THIS IS PAYLOAD ' + payload);
+      console.log('THIS IS PAYLOAD ' + util.inspect(payload, {showHidden: false, depth: null}))
+
+      // console.log('THIS IS PAYLOAD ' + payload);
       conv.ask(`I got your account details, ${payload.name}. What do you want to do next?`);
     } else {
       conv.ask(`I won't be able to save your data, but what do you want to do next?`);
