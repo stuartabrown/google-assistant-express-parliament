@@ -23,7 +23,7 @@ expressApp.post("/", dialogFlowApp);
 expressApp.get("/", async (req, res) => {
   const data = await getStravaData();
   console.log(data.athlete.id);
-  res.send("CONFIRMED RECEIPT OF GET REQUEST. " + data.athlete.id);
+  res.send("CONFIRMED RECEIPT OF GET REQUESTS. " + data.athlete.id);
 });
 
 console.log("hello", process.env.TEST);

@@ -1,8 +1,7 @@
-const {dialogflow, SignIn} = require('actions-on-google');
-const app = dialogflow({
-  // REPLACE THE PLACEHOLDER WITH THE CLIENT_ID OF YOUR ACTIONS PROJECT
-  clientId: '397558659346-qdr3pufk60c2t2smhmbapu8jb0egt0i4.apps.googleusercontent.com',
-});
+// const app = dialogflow({
+//   // REPLACE THE PLACEHOLDER WITH THE CLIENT_ID OF YOUR ACTIONS PROJECT
+//   clientId: '397558659346-qdr3pufk60c2t2smhmbapu8jb0egt0i4.apps.googleusercontent.com',
+// });
 
 // Intent that starts the account linking flow.
 // app.intent('Start Signin', (conv) => {
@@ -35,7 +34,7 @@ const {
   // Instantiate the Dialogflow client.
   const app = dialogflow({
     debug: true,
-    clientId: CLIENT_ID
+    clientId: '397558659346-qdr3pufk60c2t2smhmbapu8jb0egt0i4.apps.googleusercontent.com',
   });
 
   const getStravaData = async () => {
