@@ -53,7 +53,7 @@ const {
   });
 
 
-  app.intent('Get Signin', (conv, params, signin) => {
+  app.intent('actions_intent_SIGN_IN', (conv, params, signin) => {
     if (signin.status === 'OK') {
       const payload = conv.user.profile.payload;
       conv.ask(`I got your account details, ${payload.name}. What do you want to do next?`);
