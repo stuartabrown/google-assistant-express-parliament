@@ -18,7 +18,7 @@ const {
   app.intent('Default Welcome Intent', (conv) => {
   // app.intent('Default Welcome Intent', async (conv) => {
     // const data = await getStravaData();
-    console.log(data.athlete.id);
+    // console.log(data.athlete.id);
     conv.ask(new Permission({
       // context: 'Hi there, to get to know you better, you athelete id is '+ data.athlete.id,
       context: 'Hi there, to get to know you better, you athelete id is ',
