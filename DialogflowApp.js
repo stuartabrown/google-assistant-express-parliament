@@ -33,7 +33,7 @@ app.intent('actions_intent_PERMISSION', (conv, params, permissionGranted) => {
       conv.ask(new Suggestions('Blue', 'Red', 'Green'));
     } else {
 
-
+      console.log(conv.user);
       conv.data.userName = conv.user.name.display;
       conv.ask(`Thanks, ${conv.data.userName}. What's your favorite color?`);
       conv.ask(new Suggestions('Blue', 'Red', 'Green'));
