@@ -48,7 +48,7 @@ const {
     conv.ask(new Permission({
       // context: 'Hi there, to get to know you better, you athelete id is '+ data.athlete.id,
       context: 'Hi there, to get to know you better, you athelete id is ',
-      permissions: 'NAME'
+      permissions: 'DEVICE_COARSE_LOCATION'
     }));
   });
 
