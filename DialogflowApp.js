@@ -15,12 +15,13 @@ const {
     const response = await axios("https://www.strava.com/api/v3/activities/2373181785?access_token=ed8c7bfdcac10c2daa7477791cde45b5f51abf5e");
     return response.data;
 }
-
-  app.intent('Default Welcome Intent', async (conv) => {
-    const data = await getStravaData();
+  app.intent('Default Welcome Intent', (conv) => {
+  // app.intent('Default Welcome Intent', async (conv) => {
+    // const data = await getStravaData();
     console.log(data.athlete.id);
     conv.ask(new Permission({
-      context: 'Hi there, to get to know you better, you athelete id is '+ data.athlete.id,
+      // context: 'Hi there, to get to know you better, you athelete id is '+ data.athlete.id,
+      context: 'Hi there, to get to know you better, you athelete id is ',
       permissions: 'NAME'
     }));
   });
