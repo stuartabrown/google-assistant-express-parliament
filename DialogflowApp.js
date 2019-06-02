@@ -41,7 +41,6 @@ const {
     const response = await axios("https://www.strava.com/api/v3/activities/2373181785?access_token=ed8c7bfdcac10c2daa7477791cde45b5f51abf5e");
     return response.data;
 }
-<<<<<<< HEAD
   app.intent('Default Welcome Intent', (conv) => {
   // app.intent('Default Welcome Intent', async (conv) => {
     // const data = await getStravaData();
@@ -51,17 +50,6 @@ const {
       context: 'Hi there, to get to know you better, you athelete id is ',
       permissions: 'NAME'
     }));
-=======
-
-  app.intent('Default Welcome Intent', async (conv) => {
-    const data = await getStravaData();
-    console.log(data.athlete.id);
-    conv.ask(new SignIn('To get your account details'));
-    // conv.ask(new Permission({
-    //   context: 'Hi there, to get to know you better, you athelete id is '+ data.athlete.id,
-    //   permissions: 'NAME'
-    // }));
->>>>>>> feature/google-sign-in
   });
 
 
