@@ -24,7 +24,7 @@ const {
 app.intent('Location', (conv, {geocity}) => {
   const luckyNumber = geocity.length;
     // Respond with the user's lucky number and end the conversation.
-    conv.close('Your lucky number is not ' + luckyNumber);
+    conv.close('Your lucky city is not ' + geocity);
 });
 
 
