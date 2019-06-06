@@ -26,8 +26,9 @@ app.intent('Default Welcome Intent', (conv) => {
   conv.ask(new Permission({
     context: 'Hi there, to get to know you better',
     permissions: [
-      'NAME',
-      'DEVICE_COARSE_LOCATION'
+      'NAME'
+      // ,
+      // 'DEVICE_COARSE_LOCATION'
     ]
   }));
 });
