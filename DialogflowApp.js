@@ -55,7 +55,10 @@ app.intent('actions_intent_PERMISSION', async (conv, params, permissionGranted) 
     var MP = MPdata['@graph'];
     console.log(MP);
     // console.log(MPdata.@graph.[0].personGivenName);
-    conv.ask(`Thanks, ${conv.data.userName}. What's your favorite color? Postcode is ` + conv.data.postcode);
+    conv.ask(`Thanks, ${conv.data.userName}. What's your favorite color? Postcode is `
+    + conv.data.postcode
+    + ' Your MP name is ' + personGivenName + personFamilyName
+    );
     conv.ask(new Suggestions('Blue', 'Red', 'Green'));
   }
 });
