@@ -1,4 +1,5 @@
 const util = require('util');
+const axios = require("axios");
 
 const {
   dialogflow,
@@ -11,6 +12,10 @@ const {
     debug: true
   });
 
+const getMPFromPostcode = async (endpoint, postcode) => {
+    const response = await axios(endpoint+postcode);
+    return response.data;
+}
 
   // app.intent('Default Welcome Intent', (conv) => {
   // // app.intent('Default Welcome Intent', async (conv) => {
@@ -42,6 +47,11 @@ app.intent('actions_intent_PERMISSION', (conv, params, permissionGranted) => {
     console.log('conv dot data is ---'+ conv.data);
     conv.data.userName = conv.user.name.display;
     conv.data.postcode = conv.device.location.zipCode;
+    const MPdata = await getMPFromPostcode(
+      'https://api.parliament.uk/query/constituency_lookup_by_postcode.json?postcode=',
+      conv.data.postcode
+      );
+    console.log(MPdata);
     conv.ask(`Thanks, ${conv.data.userName}. What's your favorite color? Postcode is ` + conv.data.postcode);
     conv.ask(new Suggestions('Blue', 'Red', 'Green'));
   }
