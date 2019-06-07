@@ -39,7 +39,7 @@ app.intent('Default Welcome Intent', (conv) => {
 
 // Handle the Dialogflow intent named 'actions_intent_PERMISSION'. If user
 // agreed to PERMISSION prompt, then boolean value 'permissionGranted' is true.
-app.intent('actions_intent_PERMISSION', (conv, params, permissionGranted) => {
+app.intent('actions_intent_PERMISSION', async (conv, params, permissionGranted) => {
   if (!permissionGranted) {
     conv.ask(`Ok, no worries. What's your favorite color?`);
     conv.ask(new Suggestions('Blue', 'Red', 'Green'));
