@@ -53,7 +53,7 @@ app.intent('actions_intent_PERMISSION', async (conv, params, permissionGranted) 
       );
     //Can't figure out how to access the @graph array in response. maybe destructure?
     var MP = MPdata['@graph'];
-    var MPName = MP + personGivenName + personFamilyName;
+    var MPName = MP.personGivenName + MP.personFamilyName;
     console.log(MP);
     // console.log(MPdata.@graph.[0].personGivenName);
     conv.ask(`Thanks, ${conv.data.userName}. What's your favorite color? Postcode is `
