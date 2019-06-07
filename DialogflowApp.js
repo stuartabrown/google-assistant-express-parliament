@@ -51,6 +51,7 @@ app.intent('actions_intent_PERMISSION', async (conv, params, permissionGranted) 
       'https://api.parliament.uk/query/constituency_lookup_by_postcode.json?postcode=',
       conv.data.postcode
       );
+    //Can't figure out how to access the @graph array in response. maybe destructure?
     console.log(MPdata.personFamilyName);
     conv.ask(`Thanks, ${conv.data.userName}. What's your favorite color? Postcode is ` + conv.data.postcode);
     conv.ask(new Suggestions('Blue', 'Red', 'Green'));
