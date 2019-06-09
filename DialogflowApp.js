@@ -17,15 +17,6 @@ const getMPFromPostcode = async (endpoint, postcode) => {
     return response.data;
 }
 
-  // app.intent('Default Welcome Intent', (conv) => {
-  // // app.intent('Default Welcome Intent', async (conv) => {
-  //   conv.ask(new Permission({
-  //     // context: 'Hi there, to get to know you better, you athelete id is '+ data.athlete.id,
-  //     context: 'Hi there, to get to know you better, you athelete id is ',
-  //     permissions: 'DEVICE_COARSE_LOCATION'
-  //   }));
-  // });
-
 // Handle the Dialogflow intent named 'Default Welcome Intent'.
 app.intent('Default Welcome Intent', (conv) => {
   conv.ask(new Permission({
@@ -51,20 +42,16 @@ app.intent('actions_intent_PERMISSION', async (conv, params, permissionGranted) 
       'https://api.parliament.uk/query/constituency_lookup_by_postcode.json?postcode=',
       conv.data.postcode
       );
-    //Can't figure out how to access the @graph array in response. maybe destructure?
-    var MP = MPdata['@graph'];
-    // var MPName = MPdata['@graph'][0].personGivenName
+    console.log('HERE IS THE GRAPH ' + MPdata['@graph']);
     var MPName = MPdata['@graph'][0]['http://example.com/F31CBD81AD8343898B49DC65743F0BDF'];
     var MPConstituency = MPdata['@graph'][0].partyMemberHasPartyMembership.partyMembershipHasParty.partyName;
 
-
     console.log(MP);
-    // console.log('Your MP name is '+ MPTest);
-    // console.log(MPdata.@graph.[0].personGivenName);
+
     conv.ask(`Thanks, ${conv.data.userName}. Your postcode is `
     + conv.data.postcode
     + ' and your MP name is ' + MPName
-    + 'who represents the ' + MPConstituency + 'party.'
+    + ' who represents the ' + MPConstituency + ' party.'
     );
     conv.ask(new Suggestions('Blue', 'Red', 'Green'));
   }
