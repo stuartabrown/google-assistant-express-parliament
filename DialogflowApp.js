@@ -69,7 +69,7 @@ app.intent('actions_intent_PERMISSION', async (conv, params, permissionGranted) 
     + conv.data.postcode
     + ' and your MP name is ' + MPName
     + ' who represents the ' + MPConstituency + ' party.'
-    + 'and their mnisId is ' + mnisId;
+    + 'and their mnisId is ' + mnisId
     );
     conv.ask(new Suggestions('Blue', 'Red', 'Green'));
   }
