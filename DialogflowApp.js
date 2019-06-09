@@ -56,6 +56,8 @@ app.intent('actions_intent_PERMISSION', async (conv, params, permissionGranted) 
         MPURL
         );
 
+      const mnisId = MoreMPdata['@graph'][0].mnisId;
+
       // console.log('HERE IS THE GRAPH ' + util.inspect(MPdata['@graph'], {showHidden: false, depth: null}))
     // console.log('HERE IS THE GRAPH ' + MPdata['@graph']);
     var MPName = MPdata['@graph'][0]['http://example.com/F31CBD81AD8343898B49DC65743F0BDF'];
@@ -67,6 +69,7 @@ app.intent('actions_intent_PERMISSION', async (conv, params, permissionGranted) 
     + conv.data.postcode
     + ' and your MP name is ' + MPName
     + ' who represents the ' + MPConstituency + ' party.'
+    + 'and their mnisId is ' + mnisId;
     );
     conv.ask(new Suggestions('Blue', 'Red', 'Green'));
   }
