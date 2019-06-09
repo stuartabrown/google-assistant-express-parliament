@@ -42,11 +42,11 @@ app.intent('actions_intent_PERMISSION', async (conv, params, permissionGranted) 
       'https://api.parliament.uk/query/constituency_lookup_by_postcode.json?postcode=',
       conv.data.postcode
       );
-    console.log('HERE IS THE GRAPH ' + MPdata['@graph']);
+
+      console.log('HERE IS THE GRAPH ' + util.inspect(MPdata['@graph'], {showHidden: false, depth: null}))
+    // console.log('HERE IS THE GRAPH ' + MPdata['@graph']);
     var MPName = MPdata['@graph'][0]['http://example.com/F31CBD81AD8343898B49DC65743F0BDF'];
     var MPConstituency = MPdata['@graph'][0].partyMemberHasPartyMembership.partyMembershipHasParty.partyName;
-
-    console.log(MP);
 
     conv.ask(`Thanks, ${conv.data.userName}. Your postcode is `
     + conv.data.postcode
