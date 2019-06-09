@@ -47,7 +47,7 @@ app.intent('actions_intent_PERMISSION', async (conv, params, permissionGranted) 
     // console.log('HERE IS THE GRAPH ' + MPdata['@graph']);
     var MPName = MPdata['@graph'][0]['http://example.com/F31CBD81AD8343898B49DC65743F0BDF'];
     var MPConstituency = MPdata['@graph'][0].partyMemberHasPartyMembership.partyMembershipHasParty.partyName;
-    var MPURL = MPdata['@context']['@base']+MPdata['@graph']['@id'];
+    var MPURL = MPdata['@context']['@base']+MPdata['@graph'][0]['@id'];
     console.log('HERE IS URL '+MPURL);
     conv.ask(`Thanks, ${conv.data.userName}. Your postcode is `
     + conv.data.postcode
