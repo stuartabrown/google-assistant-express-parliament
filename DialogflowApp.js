@@ -16,6 +16,13 @@ const getMPFromPostcode = async (endpoint, postcode) => {
     const response = await axios(endpoint+postcode);
     return response.data;
 }
+const MPLookupURLBase = 'https://api.parliament.uk/query/resource.json?uri=';
+
+const getMPData = async (MPLookupURLBase, MPURL) => {
+  const response = await axios(MPLookupURLBase+MPURL);
+  console.log('HERE IS THE MP LOOKUP RESPONSE ' + util.inspect(response, {showHidden: false, depth: null}))
+  return response.data;
+}
 
 // Handle the Dialogflow intent named 'Default Welcome Intent'.
 app.intent('Default Welcome Intent', (conv) => {
@@ -43,12 +50,18 @@ app.intent('actions_intent_PERMISSION', async (conv, params, permissionGranted) 
       conv.data.postcode
       );
 
-      console.log('HERE IS THE GRAPH ' + util.inspect(MPdata['@graph'], {showHidden: false, depth: null}))
+      const MoreMPdata = await getMPData(
+        MPLookupURLBase,
+        MPURL
+        );
+
+      // console.log('HERE IS THE GRAPH ' + util.inspect(MPdata['@graph'], {showHidden: false, depth: null}))
     // console.log('HERE IS THE GRAPH ' + MPdata['@graph']);
     var MPName = MPdata['@graph'][0]['http://example.com/F31CBD81AD8343898B49DC65743F0BDF'];
     var MPConstituency = MPdata['@graph'][0].partyMemberHasPartyMembership.partyMembershipHasParty.partyName;
     var MPURL = MPdata['@context']['@base']+MPdata['@graph'][0]['@id'];
     console.log('HERE IS URL '+MPURL);
+    //https://api.parliament.uk/query/resource.json?uri=https://id.parliament.uk/N83bzqZq
     conv.ask(`Thanks, ${conv.data.userName}. Your postcode is `
     + conv.data.postcode
     + ' and your MP name is ' + MPName
@@ -67,7 +80,4 @@ app.intent('Location', (conv, {geocity}) => {
 });
 
 
-
-
-
-  module.exports = app;
+module.exports = app;
