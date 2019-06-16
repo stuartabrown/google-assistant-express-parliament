@@ -3,6 +3,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const functions = require("firebase-functions");
 const axios = require("axios");
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
+console.log(process.env.PORT);
+console.log(process.env.NODE_ENV);
 
 // clients
 const dialogFlowApp = require("./DialogflowApp");
@@ -27,7 +33,7 @@ expressApp.get("/", async (req, res) => {
   res.send("CONFIRMED RECEIPT OF GET REQUEST. ");
 });
 
-console.log("hello", process.env.TEST);
+// console.log("hello", process.env.TEST);
 
 expressApp.listen(port, () => console.log(`app listening on port ${port}!`));
 
