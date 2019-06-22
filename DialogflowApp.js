@@ -25,14 +25,29 @@ const getMPData = async (MPLookupURLBase, MPURL) => {
 }
 
 // Handle the Dialogflow intent named 'Default Welcome Intent'.
+// app.intent('Default Welcome Intent', (conv) => {
+//   conv.ask(new Permission({
+//     context: 'Hi there, to get to know you better',
+//     permissions: [
+//       'NAME',
+//       'DEVICE_COARSE_LOCATION'
+//     ]
+//   }));
+// });
+
 app.intent('Default Welcome Intent', (conv) => {
-  conv.ask(new Permission({
-    context: 'Hi there, to get to know you better',
-    permissions: [
-      'NAME',
-      'DEVICE_COARSE_LOCATION'
-    ]
-  }));
+  conv.ask('Hi, welcome to the new welcome intent, would you like to continue?');
+  conv.ask(new Suggestions('Yes', 'No'));
+});
+
+app.intent('Default Welcome Intent - yes', (conv, params) => {
+  conv.ask('Woots, you reached yes!');
+  console.log('This is params -------- '+params);
+});
+
+app.intent('Default Welcome Intent - no', (conv, params) => {
+  conv.ask('sad face, you said no!');
+
 });
 
 // Handle the Dialogflow intent named 'actions_intent_PERMISSION'. If user
