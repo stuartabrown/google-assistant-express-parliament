@@ -5,6 +5,7 @@ const functions = require("firebase-functions");
 const axios = require("axios");
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
+  console.log('were not in prod');
 }
 
 console.log(process.env.PORT);
@@ -30,7 +31,7 @@ expressApp.get("/", async (req, res) => {
   // const data = await getStravaData();
   // console.log(data.athlete.id);
   // res.send("CONFIRMED RECEIPT OF GET REQUEST. " + data.athlete.id);
-  res.send("CONFIRMED RECEIPT OF GET REQUEST. ");
+  res.send("CONFIRMED RECEIPT OF GET REQUEST now. ");
 });
 
 // console.log("hello", process.env.TEST);
