@@ -24,17 +24,6 @@ const getMPData = async (MPLookupURLBase, MPURL) => {
   return response.data;
 }
 
-// Handle the Dialogflow intent named 'Default Welcome Intent'.
-// app.intent('Default Welcome Intent', (conv) => {
-//   conv.ask(new Permission({
-//     context: 'Hi there, to get to know you better',
-//     permissions: [
-//       'NAME',
-//       'DEVICE_COARSE_LOCATION'
-//     ]
-//   }));
-// });
-
 app.intent('Default Welcome Intent', (conv) => {
   conv.ask('Hi, welcome to MP checker. I can tell you about your MP and how they voted would you like to continue?');
   conv.ask('Would you like to continue?');
