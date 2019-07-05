@@ -25,7 +25,7 @@ const getMPData = async (MPLookupURLBase, MPURL) => {
 }
 
 app.intent('Default Welcome Intent', (conv) => {
-  conv.ask('Hi, welcome to MP checker. I can tell you about your MP and how they voted would you like to continue?');
+  conv.ask('Hi, welcome to MP checker. I can tell you about your MP and how they voted.');
   conv.ask('Would you like to continue?');
   conv.ask(new Suggestions('Yes', 'No'));
 });
@@ -33,8 +33,10 @@ app.intent('Default Welcome Intent', (conv) => {
 app.intent('Default Welcome Intent - yes', (conv, params) => {
   // conv.ask('Great.');
   conv.ask('Great. In order to find your MP I will need to know your location. OK?');
+  conv.ask('If you are currently at the location you want to find the MP for, and your happy to share your address, say yes.  If you dont want me to get your location from Google, or you want to find the MP for a different address please say no.');
+
   conv.ask(new Permission({
-        context: 'If you are currently at the location you want to find the MP for, and your happy to share your address, say yes. If you dont want me to get your location from Google, or you want to find the MP for a different address please say no.',
+        context: 'Can I get your postcode?',
         permissions: [
           // 'NAME',
           'DEVICE_COARSE_LOCATION'
@@ -49,17 +51,44 @@ app.intent('Default Welcome Intent - no', (conv, params) => {
 
 
 
-app.intent('actions_intent_PERMISSION', (conv, params, permissionGranted) => {
+app.intent('actions_intent_PERMISSION', async (conv, params, permissionGranted) => {
   if (!permissionGranted) {
     conv.ask(`Ok, no worries. I'll have to figure out how to get your postcode. follow-up intent I suppose`);
   } else {
     // console.log('conv dot data is ---'+ conv.data);
     // conv.data.userName = conv.user.name.display;
     conv.data.postcode = conv.device.location.zipCode;
-    conv.ask(`Ok great - you said your postcode is ` + conv.data.postcode);
+    conv.ask(`Ok great - please give me a minute, I have to get data from a few different places.`);
 
+    const MPdata = await getMPFromPostcode(
+      'https://api.parliament.uk/query/constituency_lookup_by_postcode.json?postcode=',
+      conv.data.postcode
+      );
+      var MPURL = MPdata['@context']['@base']+MPdata['@graph'][0]['@id'];
+
+      const MoreMPdata = await getMPData(
+        'https://api.parliament.uk/query/resource.json?uri=',
+        MPURL
+        );
+
+      const mnisId = MoreMPdata['@graph'][0].mnisId;
+
+      // console.log('HERE IS THE GRAPH ' + util.inspect(MPdata['@graph'], {showHidden: false, depth: null}))
+    // console.log('HERE IS THE GRAPH ' + MPdata['@graph']);
+    var MPName = MPdata['@graph'][0]['http://example.com/F31CBD81AD8343898B49DC65743F0BDF'];
+    var MPConstituency = MPdata['@graph'][0].partyMemberHasPartyMembership.partyMembershipHasParty.partyName;
+    // var MPURL = MPdata['@context']['@base']+MPdata['@graph'][0]['@id'];
+    console.log('HERE IS URL '+MPURL);
+    //https://api.parliament.uk/query/resource.json?uri=https://id.parliament.uk/N83bzqZq
+
+    conv.ask(`Using the postcode I was given of ${conv.data.postcode}
+     I have found out that your MP name is  ${MPName}.
+     They represent the ${MPConstituency} party.
+     Their mnisId is  ${mnisId}`);
   }
 });
+
+
 
 // Handle the Dialogflow intent named 'actions_intent_PERMISSION'. If user
 // agreed to PERMISSION prompt, then boolean value 'permissionGranted' is true.
