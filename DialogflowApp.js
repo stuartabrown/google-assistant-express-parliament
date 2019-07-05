@@ -55,8 +55,6 @@ app.intent('actions_intent_PERMISSION', async (conv, params, permissionGranted) 
   if (!permissionGranted) {
     conv.ask(`Ok, no worries. I'll have to figure out how to get your postcode. follow-up intent I suppose`);
   } else {
-    // console.log('conv dot data is ---'+ conv.data);
-    // conv.data.userName = conv.user.name.display;
     conv.data.postcode = conv.device.location.zipCode;
     conv.ask(`Ok great - please give me a minute, I have to get data from a few different places.`);
 
@@ -64,22 +62,18 @@ app.intent('actions_intent_PERMISSION', async (conv, params, permissionGranted) 
       'https://api.parliament.uk/query/constituency_lookup_by_postcode.json?postcode=',
       conv.data.postcode
       );
-      var MPURL = MPdata['@context']['@base']+MPdata['@graph'][0]['@id'];
 
-      const MoreMPdata = await getMPData(
-        'https://api.parliament.uk/query/resource.json?uri=',
-        MPURL
-        );
+    const MPURL = MPdata['@context']['@base']+MPdata['@graph'][0]['@id'];
 
-      const mnisId = MoreMPdata['@graph'][0].mnisId;
+    const MoreMPdata = await getMPData(
+      'https://api.parliament.uk/query/resource.json?uri=',
+      MPURL
+      );
 
-      // console.log('HERE IS THE GRAPH ' + util.inspect(MPdata['@graph'], {showHidden: false, depth: null}))
-    // console.log('HERE IS THE GRAPH ' + MPdata['@graph']);
-    var MPName = MPdata['@graph'][0]['http://example.com/F31CBD81AD8343898B49DC65743F0BDF'];
-    var MPConstituency = MPdata['@graph'][0].partyMemberHasPartyMembership.partyMembershipHasParty.partyName;
-    // var MPURL = MPdata['@context']['@base']+MPdata['@graph'][0]['@id'];
-    console.log('HERE IS URL '+MPURL);
-    //https://api.parliament.uk/query/resource.json?uri=https://id.parliament.uk/N83bzqZq
+    const mnisId = MoreMPdata['@graph'][0].mnisId;
+
+    const MPName = MPdata['@graph'][0]['http://example.com/F31CBD81AD8343898B49DC65743F0BDF'];
+    const MPConstituency = MPdata['@graph'][0].partyMemberHasPartyMembership.partyMembershipHasParty.partyName;
 
     conv.ask(`Using the postcode I was given of ${conv.data.postcode}
      I have found out that your MP name is  ${MPName}.
