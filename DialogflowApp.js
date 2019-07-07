@@ -4,6 +4,8 @@ const axios = require("axios");
 const {
   dialogflow,
   Permission,
+  Place,
+  Table,
   Suggestions,
 } = require('actions-on-google');
 
@@ -20,7 +22,7 @@ const MPLookupURLBase = 'https://api.parliament.uk/query/resource.json?uri=';
 
 const getMPData = async (MPLookupURLBase, MPURL) => {
   const response = await axios(MPLookupURLBase+MPURL);
-  console.log('HERE IS THE MP LOOKUP RESPONSE ' + util.inspect(response, {showHidden: false, depth: null}))
+  // console.log('HERE IS THE MP LOOKUP RESPONSE ' + util.inspect(response, {showHidden: false, depth: null}))
   return response.data;
 }
 
@@ -42,7 +44,7 @@ app.intent('Default Welcome Intent - yes', (conv, params) => {
           'DEVICE_COARSE_LOCATION'
         ]
       }));
-      console.log('This is params -------- '+ util.inspect(params, {showHidden: false, depth: null}))
+      // console.log('This is params -------- '+ util.inspect(params, {showHidden: false, depth: null}))
 });
 
 app.intent('Default Welcome Intent - no', (conv, params) => {
@@ -50,11 +52,35 @@ app.intent('Default Welcome Intent - no', (conv, params) => {
 });
 
 
-
 app.intent('actions_intent_PERMISSION', async (conv, params, permissionGranted) => {
   if (!permissionGranted) {
-    conv.ask(`Ok, no worries. I'll have to figure out how to get your postcode. follow-up intent I suppose`);
+    if(conv.screen) {
+      conv.ask('This is a simple table example.')
+      conv.ask(new Table({
+        dividers: true,
+        columns: ['header 1', 'header 2', 'header 3'],
+        rows: [
+          ['row 1 item 1', 'row 1 item 2', 'row 1 item 3'],
+          ['row 2 item 1', 'row 2 item 2', 'row 2 item 3'],
+        ],
+      }));
+    };
+
+  //   const options = {
+  //     context: 'To find a place to pick you up',
+  //     prompt: 'Where would you like to be picked up?',
+  //   };
+  //   conv.ask(new Place(options));
+  // console.log('HERE IS THE PLACE ' + util.inspect(Place, {showHidden: false, depth: null}));
+
+  //   const {name} = place;
+  // if (place.name) conv.ask(`Alright! I'll send the car to ${name}`);
+    // app.intent('actions_intent_PERMISSION - no', (conv, params) => {
+    //   conv.ask('sad face, you said no to my permission request!');
+    // });
+    // conv.ask(`Ok, no worries. I'll have to figure out how to get your postcode. follow-up intent I suppose`);
   } else {
+    console.log(`******Here is ${permissionGranted} `);
     conv.data.postcode = conv.device.location.zipCode;
     conv.ask(`Ok great - please give me a minute, I have to get data from a few different places.`);
 
