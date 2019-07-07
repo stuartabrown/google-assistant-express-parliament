@@ -64,6 +64,9 @@ app.intent('actions_intent_PERMISSION', async (conv, params, permissionGranted) 
           ['row 2 item 1', 'row 2 item 2', 'row 2 item 3'],
         ],
       }));
+    }
+    else {
+      conv.ask('No screen, no table, thems the breaks.')
     };
 
   //   const options = {
